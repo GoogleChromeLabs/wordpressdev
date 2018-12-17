@@ -1,0 +1,40 @@
+name: wordpressdev
+
+recipe: wordpress
+
+config:
+  php: '7.2'
+  via: nginx
+  webroot: trunk
+  database: mariadb
+  xdebug: false
+
+services:
+  node:
+    type: node:8.9
+    ssl: true
+    globals:
+      grunt-cli: "latest"
+      gulp-cli: "latest"
+    overrides:
+      services:
+        ports:
+          - "3000:3000"
+
+tooling:
+  npm:
+    service: appserver
+  node:
+    service: appserver
+  grunt:
+    service: appserver
+  gulp:
+    service: appserver
+  composer:
+    service: appserver
+  wp:
+    service: appserver
+  wp-install:
+    description: Install WordPress and dependencies
+    cmd: ./config/wp-install.sh
+    service: appserver

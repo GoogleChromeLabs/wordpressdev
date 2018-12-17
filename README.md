@@ -18,3 +18,5 @@ This is a [WordPress core development](https://core.trac.wordpress.org/browser/t
 * Run `lando start`. When doing this for the first time, it will set the environment up for you, so it will take a bit longer than on subsequent starts.
 * Run `lando wp-install`. This will download the WordPress core development repository, install necessary dependencies, create a first build, and install WordPress for you.
 * Access your site under `https://wordpressdev.lndo.site/build/`.
+
+If this is your very first Lando project, make sure that your system trusts the SSL certificate that Lando generates via: `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/.lando/certs/lndo.site.pem` You might need to restart your browser to see the change being reflected.

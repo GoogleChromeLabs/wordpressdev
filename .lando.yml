@@ -10,21 +10,23 @@ config:
   xdebug: false
 
 services:
-  node:
-    type: node:8.9
-    ssl: true
-    globals:
-      grunt-cli: "latest"
-      gulp-cli: "latest"
-    overrides:
-      services:
-        ports:
-          - "3000:3000"
+  appserver:
+    composer:
+      phpunit/phpunit: "^6"
+    install_dependencies_as_root:
+      - apt-get update -y
+      - apt-get install gnupg -y
+      - curl -sL https://deb.nodesource.com/setup_8.x | bash -
+      - apt-get install subversion -y
+      - apt-get install nodejs -y
+    install_dependencies_as_me_internal:
+      - mkdir ~/.npm-global
+      - npm config set prefix '~/.npm-global'
+      - npm install -g grunt-cli
+      - npm install -g gulp-cli
 
 tooling:
   npm:
-    service: appserver
-  node:
     service: appserver
   grunt:
     service: appserver
@@ -32,9 +34,15 @@ tooling:
     service: appserver
   composer:
     service: appserver
+  git:
+    service: appserver
+  svn:
+    service: appserver
+  phpunit:
+    service: appserver
   wp:
     service: appserver
   wp-install:
     description: Install WordPress and dependencies
-    cmd: ./config/wp-install.sh
+    cmd: export PATH=~/.npm-global/bin:$PATH && ./config/wp-install.sh
     service: appserver

@@ -80,6 +80,11 @@ define( 'NONCE_SALT',       'put your unique phrase here' );
  */
 $table_prefix = 'wp_';
 
+// Allow local environment to override config.
+if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
+	require __DIR__ . '/wp-config-local.php' );
+}
+
 /**
  * For developers: WordPress debugging mode.
  *

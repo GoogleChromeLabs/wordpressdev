@@ -97,7 +97,9 @@ if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define( 'WP_DEBUG', true );
+if ( ! defined( 'WP_DEBUG' ) ) {
+	define( 'WP_DEBUG', true );
+}
 
 /* That's all, stop editing! Happy blogging. */
 

@@ -9,6 +9,9 @@ config:
   database: mariadb
   xdebug: true
 
+  conf:
+    server: config/wordpress.conf
+
 services:
   appserver:
     composer:
@@ -16,14 +19,17 @@ services:
       phpunit/phpunit: "^6"
     install_dependencies_as_me:
       - if [ ! -e $LANDO_MOUNT/core ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/core; fi
-      - if [ ! -e $LANDO_MOUNT/core/wp-config.php ]; then ln -s ../config/wp-config.php $LANDO_MOUNT/core/wp-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/core/wp-tests-config.php ]; then ln -s ../config/wp-tests-config.php $LANDO_MOUNT/core/wp-tests-config.php; fi
-      - cd $LANDO_MOUNT/core && composer install"
+      - if [ ! -e $LANDO_MOUNT/core/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/core/wp-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/core/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/core/wp-tests-config.php; fi
+      - mkdir -p $LANDO_MOUNT/content/plugins
+      - mkdir -p $LANDO_MOUNT/content/themes
+      - if [ ! -e $LANDO_MOUNT/content/themes/twentynineteen ]; then cp -r $LANDO_MOUNT/core/src/wp-content/themes/twentynineteen $LANDO_MOUNT/content/themes/twentynineteen; fi
+      - cd $LANDO_MOUNT/core && composer install
     run_as_root:
       # Allow loopback requests to work.
       - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
     run:
-      - cd $LANDO_MOUNT/core && wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"
+      - cd $LANDO_MOUNT/core; if ! wp core is-installed; then wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"; fi
 
   node:
     type: node:10

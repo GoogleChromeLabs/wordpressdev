@@ -69,6 +69,13 @@ $table_prefix = 'wp_';
 if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
 	require __DIR__ . '/wp-config-local.php';
 }
+if ( file_exists( __DIR__ . '/../wp-config-local.php' ) ) {
+	require __DIR__ . '/../wp-config-local.php';
+}
+
+if ( ! defined( 'WP_CONTENT_DIR' ) ) {
+	define( 'WP_CONTENT_DIR', dirname( __DIR__ ) . '/content' );
+}
 
 if ( ! defined( 'FORCE_SSL_ADMIN' ) ) {
 	define( 'FORCE_SSL_ADMIN', true );
@@ -94,7 +101,7 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+	define( 'ABSPATH', dirname( __FILE__ ) . '/build/' );
 }
 
 /** Sets up WordPress vars and included files. */

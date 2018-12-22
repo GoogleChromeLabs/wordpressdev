@@ -5,3 +5,4 @@ wp-config-local.php
 [Dd]esktop.ini
 *.DS_store
 .DS_store?
+/content

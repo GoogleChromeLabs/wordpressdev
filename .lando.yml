@@ -25,7 +25,7 @@ services:
       - mkdir -p $LANDO_MOUNT/content/themes
       - if [ ! -e $LANDO_MOUNT/content/themes/twentynineteen ]; then cp -r $LANDO_MOUNT/core/src/wp-content/themes/twentynineteen $LANDO_MOUNT/content/themes/twentynineteen; fi
       - cd $LANDO_MOUNT/core && composer install
-    run_as_root:
+    install_dependencies_as_root:
       # Allow loopback requests to work.
       - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
     run:

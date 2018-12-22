@@ -74,7 +74,7 @@ if ( file_exists( __DIR__ . '/../wp-config-local.php' ) ) {
 }
 
 if ( ! defined( 'WP_CONTENT_DIR' ) ) {
-	define( 'WP_CONTENT_DIR', dirname( __DIR__ ) . '/content' );
+	define( 'WP_CONTENT_DIR', dirname( __DIR__ ) . '/wp-content' );
 }
 
 if ( ! defined( 'FORCE_SSL_ADMIN' ) ) {

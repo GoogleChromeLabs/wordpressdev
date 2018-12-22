@@ -20,6 +20,6 @@ This is a [WordPress core development](https://core.trac.wordpress.org/browser/t
 ```
 127.0.0.1       wordpressdev.lndo.site
 ```
-* Work with themes and plugins under `core/build/wp-content`. The `core/src` is only for WordPress core sources. You work in the build version of core since core can no longer be run from src. 
+* ~Work with themes and plugins under `core/build/wp-content`. The `core/src` is only for WordPress core sources. You work in the build version of core since core can no longer be run from src.~ (Do not do this because content will be deleted when doing a new build!)
 
 If this is your very first Lando project, make sure that your system trusts the SSL certificate that Lando generates via: `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/.lando/certs/lndo.site.pem` You might need to restart your browser to see the change being reflected.

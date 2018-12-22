@@ -18,21 +18,6 @@
  * @package WordPress
  */
 
-if ( empty( $_SERVER['REQUEST_URI'] ) || 0 !== strpos( $_SERVER['REQUEST_URI'], '/build' ) && 0 !== strpos( $_SERVER['REQUEST_URI'], '/src' ) ) {
-	header( 'Location: https://' . $_SERVER['HTTP_HOST'] . '/build/' );
-	exit;
-}
-
-define( 'WORDPRESSDEV_IS_SRC', ! empty( $_SERVER['REQUEST_URI'] ) && 0 === strpos( $_SERVER['REQUEST_URI'], '/src' ) );
-
-if ( WORDPRESSDEV_IS_SRC ) {
-	define( 'WP_HOME', 'https://' . $_SERVER['HTTP_HOST'] . '/src/' );
-	define( 'WP_SITEURL', WP_HOME );
-} else {
-	define( 'WP_HOME', 'https://' . $_SERVER['HTTP_HOST'] . '/build/' );
-	define( 'WP_SITEURL', WP_HOME );
-}
-
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define( 'DB_NAME', 'wordpress' );
@@ -82,7 +67,11 @@ $table_prefix = 'wp_';
 
 // Allow local environment to override config.
 if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
-	require __DIR__ . '/wp-config-local.php' );
+	require __DIR__ . '/wp-config-local.php';
+}
+
+if ( ! defined( 'FORCE_SSL_ADMIN' ) ) {
+	define( 'FORCE_SSL_ADMIN', true );
 }
 
 /**
@@ -105,7 +94,7 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' . ( WORDPRESSDEV_IS_SRC ? 'src' : 'build' ) . '/' );
+	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
 }
 
 /** Sets up WordPress vars and included files. */

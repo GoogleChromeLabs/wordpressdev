@@ -2,9 +2,9 @@
 
 /* Path to the WordPress codebase you'd like to test. Add a forward slash in the end. */
 if ( defined( 'WP_RUN_CORE_TESTS' ) && WP_RUN_CORE_TESTS ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/build/' );
+	define( 'ABSPATH', dirname( __FILE__ ) . '/../core/build/' );
 } else {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/src/' );
+	define( 'ABSPATH', dirname( __FILE__ ) . '/../core/src/' );
 }
 
 /*

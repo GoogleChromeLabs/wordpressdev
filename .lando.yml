@@ -5,44 +5,45 @@ recipe: wordpress
 config:
   php: '7.2'
   via: nginx
-  webroot: trunk
+  webroot: core/build
   database: mariadb
   xdebug: true
 
 services:
   appserver:
     composer:
+      # Note installing phpunit should be temporary because core should really install it via composer on its own.
       phpunit/phpunit: "^6"
-    install_dependencies_as_root:
-      - apt-get update -y
-      - apt-get install gnupg -y
-      - curl -sL https://deb.nodesource.com/setup_8.x | bash -
-      - apt-get install subversion -y
-      - apt-get install nodejs -y
-    install_dependencies_as_me_internal:
-      - mkdir ~/.npm-global
-      - npm config set prefix '~/.npm-global'
-      - npm install -g grunt-cli
-      - npm install -g gulp-cli
+    install_dependencies_as_me:
+      - if [ ! -e $LANDO_MOUNT/core ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/core; fi
+      - if [ ! -e $LANDO_MOUNT/core/wp-config.php ]; then ln -s ../config/wp-config.php $LANDO_MOUNT/core/wp-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/core/wp-tests-config.php ]; then ln -s ../config/wp-tests-config.php $LANDO_MOUNT/core/wp-tests-config.php; fi
+      - cd $LANDO_MOUNT/core && composer install"
+    run_as_root:
+      # Allow loopback requests to work.
+      - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
+    run:
+      - cd $LANDO_MOUNT/core && wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"
+
+  node:
+    type: node:10
+    install_dependencies_as_me:
+      - cd $LANDO_MOUNT/core && npm install && npx grunt
 
 tooling:
   npm:
-    service: appserver
+    service: node
   grunt:
-    service: appserver
+    service: node
+    cmd: "npx grunt"
   gulp:
-    service: appserver
+    service: node
+    cmd: "npx gulp"
   composer:
     service: appserver
   git:
     service: appserver
-  svn:
-    service: appserver
   phpunit:
     service: appserver
   wp:
-    service: appserver
-  wp-install:
-    description: Install WordPress and dependencies
-    cmd: export PATH=~/.npm-global/bin:$PATH && ./config/wp-install.sh
     service: appserver

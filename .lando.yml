@@ -26,24 +26,25 @@ services:
       - if [ ! -e $LANDO_MOUNT/content/themes/twentynineteen ]; then cp -r $LANDO_MOUNT/core/src/wp-content/themes/twentynineteen $LANDO_MOUNT/content/themes/twentynineteen; fi
       - cd $LANDO_MOUNT/core && composer install
     install_dependencies_as_root:
+      - apt-get update -y
+      - apt-get install gnupg -y
+      - curl -sL https://deb.nodesource.com/setup_10.x | bash -
+      - apt-get install nodejs -y
+      - apt-get install zip -y
       # Allow loopback requests to work.
       - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
     run:
       - cd $LANDO_MOUNT/core; if ! wp core is-installed; then wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"; fi
-
-  node:
-    type: node:10
-    install_dependencies_as_me:
-      - cd $LANDO_MOUNT/core && npm install && npx grunt
+      - cd $LANDO_MOUNT/core; npm install && npx grunt
 
 tooling:
   npm:
-    service: node
+    service: appserver
   grunt:
-    service: node
+    service: appserver
     cmd: "npx grunt"
   gulp:
-    service: node
+    service: appserver
     cmd: "npx gulp"
   composer:
     service: appserver

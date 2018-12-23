@@ -7,7 +7,7 @@ config:
   via: nginx
   webroot: core/build
   database: mariadb
-  xdebug: true
+  xdebug: false
 
   conf:
     server: config/wordpress.conf

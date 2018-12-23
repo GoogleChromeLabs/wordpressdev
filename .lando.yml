@@ -52,5 +52,7 @@ tooling:
     service: appserver
   phpunit:
     service: appserver
+    # TODO: This is not ideal way to force the environment variable to be set, but it is a struggle to get it to persist globally.
+    cmd: "WP_TESTS_DIR=/app/core/tests/phpunit/ phpunit"
   wp:
     service: appserver

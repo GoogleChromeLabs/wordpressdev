@@ -24,6 +24,7 @@ services:
       - mkdir -p $LANDO_MOUNT/content/plugins
       - mkdir -p $LANDO_MOUNT/content/themes
       - if [ ! -e $LANDO_MOUNT/content/themes/twentynineteen ]; then cp -r $LANDO_MOUNT/core/src/wp-content/themes/twentynineteen $LANDO_MOUNT/content/themes/twentynineteen; fi
+      - if [ ! -e $LANDO_MOUNT/content/themes/twentyseventeen ]; then cp -r $LANDO_MOUNT/core/src/wp-content/themes/twentyseventeen $LANDO_MOUNT/content/themes/twentyseventeen; fi
       - cd $LANDO_MOUNT/core && composer install
     install_dependencies_as_root:
       - apt-get update -y

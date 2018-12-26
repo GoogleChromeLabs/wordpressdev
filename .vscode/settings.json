@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-        "core/build": true
+        "public/core/build": true
     },
     "search.useIgnoreFiles": false
 }

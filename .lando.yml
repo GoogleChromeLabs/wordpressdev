@@ -26,21 +26,18 @@ services:
       - apt-get install subversion -y
       # Allow loopback requests to work.
       - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
-    install_dependencies_as_me:
-      # Install WordPress for contributing via git.
+    run:
+      # Setup WordPress for contributing via git.
       - if [ ! -e $LANDO_MOUNT/public/trunk-git ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/trunk-git; fi
       - if [ ! -e $LANDO_MOUNT/public/trunk-git/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/trunk-git/wp-config.php; fi
       - if [ ! -e $LANDO_MOUNT/public/trunk-git/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/trunk-git/wp-tests-config.php; fi
       - cd $LANDO_MOUNT/public/trunk-git && composer install
-      # Install WordPress for contributing via SVN.
-      - if [ ! -e $LANDO_MOUNT/public/trunk-svn ]; then svn co https://develop.svn.wordpress.org/trunk/ $LANDO_MOUNT/public/trunk-svn; fi
+      - cd $LANDO_MOUNT/public/trunk-git; npm install && npx grunt
+      # Setup WordPress for contributing via SVN.
+      - if [ ! -e $LANDO_MOUNT/public/trunk-svn ]; then svn co https://develop.svn.wordpress.org/trunk/ $LANDO_MOUNT/public/trunk-svn; fi
       - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/trunk-svn/wp-config.php; fi
       - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php; fi
       - cd $LANDO_MOUNT/public/trunk-svn && composer install
-    run:
-      # Run build process in git repository.
-      - cd $LANDO_MOUNT/public/trunk-git; npm install && npx grunt
-      # Run build process in SVN repository.
       - cd $LANDO_MOUNT/public/trunk-svn; npm install && npx grunt
       # Install WordPress (for both variants).
       - if ! wp core is-installed; then wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"; fi

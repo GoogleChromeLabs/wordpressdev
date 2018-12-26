@@ -8,14 +8,23 @@
 /**
  * Detects the relative WordPress core path to use.
  *
- * The function reads the core path from 'wp-cli.yml' in the directory located one level above. If the file
- * is not found or cannot be read, the function falls back to using the 'trunk-git/build' path.
+ * The function reads the core path from the 'WP_CORE_DIR environment variable' or the 'wp-cli.yml'
+ * file in the directory located one level above. If the file is not found or cannot be read, the
+ * function falls back to using the 'trunk-git/build' path.
  *
  * @access private
  *
  * @return string WordPress core path, relative to the 'public' directory.
  */
 function _wordpressdev_detect_core_path_relative() {
+	// Try reading core path from 'WP_CORE_DIR' environment variable.
+	if ( false !== getenv( 'WP_CORE_DIR' ) ) {
+		$core_dir = getenv( 'WP_CORE_DIR' );
+		if ( 0 === strpos( $core_dir, dirname( __FILE__ ) ) ) {
+			return trim( str_replace( dirname( __FILE__ ), '', $core_dir ), '/' );
+		}
+	}
+
 	// Try reading core path from 'wp-cli.yml'.
 	if ( function_exists( 'yaml_parse_file' ) && file_exists( dirname( dirname( __FILE__ ) ) . '/wp-cli.yml' ) ) {
 		$yaml = yaml_parse_file( dirname( dirname( __FILE__ ) ) . '/wp-cli.yml' );
@@ -55,10 +64,14 @@ function _wordpressdev_set_directory_constants( $core_path_relative = '', $conte
 	define( 'WP_CONTENT_PATH_RELATIVE', $content_path_relative );
 
 	// Define 'ABSPATH'.
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' . WP_CORE_PATH_RELATIVE . '/' );
+	if ( ! defined( 'ABSPATH' ) ) {
+		define( 'ABSPATH', dirname( __FILE__ ) . '/' . WP_CORE_PATH_RELATIVE . '/' );
+	}
 
 	// Define 'WP_CONTENT_DIR'.
-	define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/' . WP_CONTENT_PATH_RELATIVE );
+	if ( ! defined( 'WP_CONTENT_DIR' ) ) {
+		define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/' . WP_CONTENT_PATH_RELATIVE );
+	}
 }
 
 /**

@@ -18,6 +18,16 @@
  * @package WordPress
  */
 
+// Load custom functions.
+if ( ! function_exists( '_wordpressdev_set_directory_constants' ) ) {
+	require_once dirname( __FILE__ ) . '/functions.php';
+}
+
+// Detect and set WordPress core and content locations.
+if ( ! defined( 'WP_CORE_PATH_RELATIVE' ) ) {
+	_wordpressdev_set_directory_constants();
+}
+
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define( 'DB_NAME', 'wordpress' );

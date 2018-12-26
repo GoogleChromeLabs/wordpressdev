@@ -8,6 +8,9 @@ public
 !public/content/plugins/.gitkeep
 !public/content/themes/.gitkeep
 
+.env
+!config/.env
+
 [Tt]humbs.db
 [Dd]esktop.ini
 *.DS_store

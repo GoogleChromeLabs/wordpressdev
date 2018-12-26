@@ -26,6 +26,9 @@ services:
       - apt-get install subversion -y
       # Allow loopback requests to work.
       - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
+    install_dependencies_as_me:
+      # Setup environment variables.
+      - if [ ! -e $LANDO_MOUNT/.env ]; then cp $LANDO_MOUNT/config/.env $LANDO_MOUNT/.env && sed -i "s#/app#$LANDO_MOUNT#" $LANDO_MOUNT/.env; fi
     run:
       # Setup WordPress for contributing via git.
       - if [ ! -e $LANDO_MOUNT/public/trunk-git ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/trunk-git; fi
@@ -59,7 +62,5 @@ tooling:
     service: appserver
   phpunit:
     service: appserver
-    # TODO: This is not the ideal way to force the environment variable to be set, but it is a struggle to get it to persist globally.
-    cmd: "WP_TESTS_DIR=/app/public/trunk-git/tests/phpunit/ phpunit"
   wp:
     service: appserver

@@ -28,11 +28,11 @@ services:
       - if [ ! -e $LANDO_MOUNT/.env ]; then cp $LANDO_MOUNT/config/.env $LANDO_MOUNT/.env && sed -i "s#/app#$LANDO_MOUNT#" $LANDO_MOUNT/.env; fi
     run:
       # Setup WordPress for contributing via git.
-      - if [ ! -e $LANDO_MOUNT/public/trunk-git ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/trunk-git; fi
-      - if [ ! -e $LANDO_MOUNT/public/trunk-git/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/trunk-git/wp-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/public/trunk-git/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/trunk-git/wp-tests-config.php; fi
-      - cd $LANDO_MOUNT/public/trunk-git && composer install
-      - cd $LANDO_MOUNT/public/trunk-git; npm install && npx grunt
+      - if [ ! -e $LANDO_MOUNT/public/core-git ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/core-git; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/core-git/wp-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/core-git/wp-tests-config.php; fi
+      - cd $LANDO_MOUNT/public/core-git && composer install
+      - cd $LANDO_MOUNT/public/core-git; npm install && npx grunt
       # Setup WordPress for contributing via SVN.
       - if [ ! -e $LANDO_MOUNT/public/trunk-svn ]; then svn co https://develop.svn.wordpress.org/trunk/ $LANDO_MOUNT/public/trunk-svn; fi
       - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/trunk-svn/wp-config.php; fi

@@ -10,7 +10,7 @@
  *
  * The function reads the core path from the 'WP_CORE_DIR environment variable' or the 'wp-cli.yml'
  * file in the directory located one level above. If the file is not found or cannot be read, the
- * function falls back to using the 'trunk-git/build' path.
+ * function falls back to using the 'core-git/build' path.
  *
  * @access private
  *
@@ -33,7 +33,7 @@ function _wordpressdev_detect_core_path_relative() {
 		}
 	}
 
-	return 'trunk-git/build';
+	return 'core-git/build';
 }
 
 /**

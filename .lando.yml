@@ -9,9 +9,6 @@ config:
   database: mariadb
   xdebug: false
 
-  conf:
-    server: config/wordpress.conf
-
 services:
   appserver:
     composer:

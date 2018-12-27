@@ -59,5 +59,7 @@ tooling:
     service: appserver
   phpunit:
     service: appserver
+    # TODO: This is not the ideal way to force the environment variable to be set, but the .env file does not always persist due to a Lando bug.
+    cmd: "WP_TESTS_DIR=/app/public/trunk-git/tests/phpunit/ phpunit"
   wp:
     service: appserver

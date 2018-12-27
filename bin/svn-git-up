@@ -1,0 +1,46 @@
+#!/bin/bash
+# Update Git and SVN repos checked out in the same directory.
+#
+# Pass a branch name like 4.6 as the sole argument to checkout that branch. Otherwise, master/trunk is checked out.
+
+cd $(dirname "$0")/../public/core-git
+
+if [[ ! -e .svn ]]; then
+	echo "Error: Unable to find svn root."
+	exit 1
+fi
+if [[ ! -e .git ]]; then
+	echo "Error: There is no git directory."
+	exit 1
+fi
+
+set -ex
+git fetch origin --tags
+
+git_branch=master
+svn_path='^/trunk'
+if [ ! -z "$1" ] && [ "$1" != 'master' ] && [ "$1" != 'trunk' ]; then
+	git_branch=$1
+	svn_path="^/branches/$1"
+fi
+
+git stash save
+svn switch --force $svn_path --ignore-externals
+svn revert -R .
+git checkout -f $git_branch
+git reset --hard origin/$git_branch
+svn up --force --accept=theirs-full --ignore-externals
+
+set +x
+set +e
+echo
+echo "----------------------------"
+
+echo "## svn status"
+if ! svn status --ignore-externals | grep -Ev '^(\?|\X)'; then
+	echo 'nothing to commit'
+fi
+
+echo
+echo "## git status"
+git status -uno

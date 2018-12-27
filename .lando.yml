@@ -29,13 +29,16 @@ services:
       - if [ ! -e $LANDO_MOUNT/wp-cli.yml ]; then cp $LANDO_MOUNT/config/wp-cli.yml $LANDO_MOUNT/wp-cli.yml; fi
     run:
       # Setup WordPress for contributing via git.
+      # TODO: Rename core-git to core or core-dev.
       - if [ ! -e $LANDO_MOUNT/public/core-git ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/core-git; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/.svn ]; then echo "Checking out WordPress SVN..."; cd $LANDO_MOUNT; svn co -q --ignore-externals https://develop.svn.wordpress.org/trunk/ tmp-svn; mv tmp-svn/.svn public/core-git/.svn; rm -rf tmp-svn; fi
       - if [ ! -e $LANDO_MOUNT/public/core-git/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/core-git/wp-config.php; fi
       - if [ ! -e $LANDO_MOUNT/public/core-git/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/core-git/wp-tests-config.php; fi
       - if [ ! -e $LANDO_MOUNT/public/core-git/vendor ]; then cd $LANDO_MOUNT/public/core-git && composer install; fi
       - if [ ! -e $LANDO_MOUNT/public/core-git/node_modules ]; then cd $LANDO_MOUNT/public/core-git && npm install; fi
       - if [ ! -e $LANDO_MOUNT/public/core-git/build ]; then cd $LANDO_MOUNT/public/core-git && npx grunt; fi
       # Setup WordPress for contributing via SVN.
+      # TODO: Remove the following once SVN above is good to go.
       - if [ ! -e $LANDO_MOUNT/public/trunk-svn ]; then svn co https://develop.svn.wordpress.org/trunk/ $LANDO_MOUNT/public/trunk-svn; fi
       - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/trunk-svn/wp-config.php; fi
       - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php; fi
@@ -60,6 +63,9 @@ tooling:
     service: appserver
   svn:
     service: appserver
+  svn-git-up:
+    service: appserver
+    cmd: "bash $LANDO_MOUNT/bin/svn-git-up"
   phpunit:
     service: appserver
     # TODO: This is not the ideal way to force the environment variable to be set, but the .env file does not always persist due to a Lando bug.

@@ -5,33 +5,55 @@ recipe: wordpress
 config:
   php: '7.2'
   via: nginx
-  webroot: trunk
+  webroot: public
   database: mariadb
   xdebug: false
 
 services:
   appserver:
     composer:
+      # Note installing phpunit should be temporary because core should really install it via composer on its own.
       phpunit/phpunit: "^6"
     install_dependencies_as_root:
       - apt-get update -y
       - apt-get install gnupg -y
-      - curl -sL https://deb.nodesource.com/setup_8.x | bash -
-      - apt-get install subversion -y
+      - curl -sL https://deb.nodesource.com/setup_10.x | bash -
       - apt-get install nodejs -y
-    install_dependencies_as_me_internal:
-      - mkdir ~/.npm-global
-      - npm config set prefix '~/.npm-global'
-      - npm install -g grunt-cli
-      - npm install -g gulp-cli
+      - apt-get install zip -y
+      - apt-get install subversion -y
+      # Allow loopback requests to work.
+      - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
+    install_dependencies_as_me:
+      # Setup environment variables and WP-CLI configuration.
+      - if [ ! -e $LANDO_MOUNT/.env ]; then cp $LANDO_MOUNT/config/.env $LANDO_MOUNT/.env && sed -i "s#/app#$LANDO_MOUNT#" $LANDO_MOUNT/.env; fi
+      - if [ ! -e $LANDO_MOUNT/wp-cli.yml ]; then cp $LANDO_MOUNT/config/wp-cli.yml $LANDO_MOUNT/wp-cli.yml; fi
+    run:
+      # Setup WordPress for contributing via git.
+      - if [ ! -e $LANDO_MOUNT/public/core-git ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/core-git; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/core-git/wp-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/core-git/wp-tests-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/vendor ]; then cd $LANDO_MOUNT/public/core-git && composer install; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/node_modules ]; then cd $LANDO_MOUNT/public/core-git && npm install; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-git/build ]; then cd $LANDO_MOUNT/public/core-git && npx grunt; fi
+      # Setup WordPress for contributing via SVN.
+      - if [ ! -e $LANDO_MOUNT/public/trunk-svn ]; then svn co https://develop.svn.wordpress.org/trunk/ $LANDO_MOUNT/public/trunk-svn; fi
+      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/trunk-svn/wp-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/vendor ]; then cd $LANDO_MOUNT/public/trunk-svn && composer install; fi
+      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/node_modules ]; then cd $LANDO_MOUNT/public/trunk-svn && npm install; fi
+      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/build ]; then cd $LANDO_MOUNT/public/trunk-svn && npx grunt; fi
+      # Install WordPress (for both variants).
+      - if ! wp core is-installed; then wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"; fi
 
 tooling:
   npm:
     service: appserver
   grunt:
     service: appserver
+    cmd: "npx grunt"
   gulp:
     service: appserver
+    cmd: "npx gulp"
   composer:
     service: appserver
   git:
@@ -40,9 +62,7 @@ tooling:
     service: appserver
   phpunit:
     service: appserver
+    # TODO: This is not the ideal way to force the environment variable to be set, but the .env file does not always persist due to a Lando bug.
+    cmd: "WP_TESTS_DIR=/app/public/core-git/tests/phpunit/ phpunit"
   wp:
-    service: appserver
-  wp-install:
-    description: Install WordPress and dependencies
-    cmd: export PATH=~/.npm-global/bin:$PATH && ./config/wp-install.sh
     service: appserver

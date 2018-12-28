@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+        "public/core-git/build": true
+    },
+    "search.useIgnoreFiles": false
+}

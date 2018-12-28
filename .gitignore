@@ -1,4 +1,18 @@
-trunk
+public
+!public/functions.php
+!public/index.php
+!public/wp-config.php
+!public/wp-tests-config.php
+!public/content/mu-plugins/.gitkeep
+!public/content/mu-plugins/allow-using-default-themes.php
+!public/content/plugins/.gitkeep
+!public/content/themes/.gitkeep
+
+.env
+!config/.env
+
+wp-cli.yml
+!config/wp-cli.yml
 
 [Tt]humbs.db
 [Dd]esktop.ini

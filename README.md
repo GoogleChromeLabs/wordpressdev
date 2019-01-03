@@ -26,9 +26,9 @@ If this is your very first Lando project, make sure that your system trusts the 
 
 ## Usage
 
-* WordPress core contributions can happen either via the `public/core-git` directory (if you prefer to use git) or via the `public/trunk-svn` directory (if you prefer to use SVN).
+* WordPress core contributions can happen either via the `public/core-dev` directory (if you prefer to use git) or via the `public/trunk-svn` directory (if you prefer to use SVN).
 * WordPress plugin and theme development should happen in `public/content`, which is a custom `wp-content` directory, decoupled from the WordPress core repository. The environment automatically takes care of setting WordPress constants appropriately so that the core and content directories are connected, so you don't need to worry about this.
-* By default, the website you open from the browser will run off the `public/core-git/build` directory. If you prefer to use WordPress core from another directory (for example `public/trunk-svn/build`), you need to update the following configurations:
+* By default, the website you open from the browser will run off the `public/core-dev/build` directory. If you prefer to use WordPress core from another directory (for example `public/trunk-svn/build`), you need to update the following configurations:
     * all three variables defined in `.env`
     * the path defined in `wp-cli.yml`
     * the hardcoded `WP_TESTS_DIR` value at the very bottom of `.lando.yml`

@@ -12,7 +12,7 @@
  * Otherwise it reads the core path from the 'WP_CORE_DIR' environment variable or the 'wp-cli.yml'
  * file in the directory located one level above.
  *
- * If all else fails, the function falls back to using the 'core-git/build' path.
+ * If all else fails, the function falls back to using the 'core-dev/build' path.
  *
  * @access private
  *
@@ -39,8 +39,8 @@ function _wordpressdev_detect_core_path_relative() {
 		}
 	}
 
-	// Fall back to a hard-coded 'core-git/build' as last resort.
-	return 'core-git/build';
+	// Fall back to a hard-coded 'core-dev/build' as last resort.
+	return 'core-dev/build';
 }
 
 /**

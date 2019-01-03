@@ -19,16 +19,16 @@ git fetch origin --tags
 
 git_branch=master
 svn_path='^/trunk'
-if [ ! -z "$1" ] && [ "$1" != 'master' ] && [ "$1" != 'trunk' ]; then
-	git_branch=$1
+if [[ ! -z "$1" ]] && [[ "$1" != 'master' ]] && [[ "$1" != 'trunk' ]]; then
+	git_branch="$1"
 	svn_path="^/branches/$1"
 fi
 
 git stash save
-svn switch --force $svn_path --ignore-externals
+svn switch --force "${svn_path}" --ignore-externals
 svn revert -R .
-git checkout -f $git_branch
-git reset --hard origin/$git_branch
+git checkout -f "${git_branch}"
+git reset --hard "origin/${git_branch}"
 svn up --force --accept=theirs-full --ignore-externals
 
 set +x

@@ -30,7 +30,7 @@ services:
     run:
       # Setup WordPress for contributing.
       - if [ ! -e $LANDO_MOUNT/public/core-dev ]; then git clone https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/core-dev; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-dev/.svn ]; then echo "Checking out WordPress SVN..."; cd $LANDO_MOUNT; svn co -q --ignore-externals https://develop.svn.wordpress.org/trunk/ tmp-svn; mv tmp-svn/.svn public/core-dev/.svn; rm -rf tmp-svn; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-dev/.svn ]; then cd $LANDO_MOUNT; svn co --ignore-externals https://develop.svn.wordpress.org/trunk/ tmp-svn; mv tmp-svn/.svn public/core-dev/.svn; rm -rf tmp-svn; fi
       - if [ ! -e $LANDO_MOUNT/public/core-dev/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/core-dev/wp-config.php; fi
       - if [ ! -e $LANDO_MOUNT/public/core-dev/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/core-dev/wp-tests-config.php; fi
       - if [ ! -e $LANDO_MOUNT/public/core-dev/vendor ]; then cd $LANDO_MOUNT/public/core-dev && composer install; fi

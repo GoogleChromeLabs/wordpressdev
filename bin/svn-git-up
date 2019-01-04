@@ -3,7 +3,7 @@
 #
 # Pass a branch name like 4.6 as the sole argument to checkout that branch. Otherwise, master/trunk is checked out.
 
-cd $(dirname "$0")/../public/core-dev
+cd $( git rev-parse --show-toplevel )
 
 if [[ ! -e .svn ]]; then
 	echo "Error: Unable to find svn root."

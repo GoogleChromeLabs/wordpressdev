@@ -54,9 +54,6 @@ tooling:
     service: appserver
   svn:
     service: appserver
-  svn-git-up:
-    service: appserver
-    cmd: "bash $LANDO_MOUNT/bin/svn-git-up"
   phpunit:
     service: appserver
     # TODO: This is not the ideal way to force the environment variable to be set, but the .env file does not always persist due to a Lando bug.

@@ -28,21 +28,15 @@ services:
       - if [ ! -e $LANDO_MOUNT/.env ]; then cp $LANDO_MOUNT/config/.env $LANDO_MOUNT/.env && sed -i "s#/app#$LANDO_MOUNT#" $LANDO_MOUNT/.env; fi
       - if [ ! -e $LANDO_MOUNT/wp-cli.yml ]; then cp $LANDO_MOUNT/config/wp-cli.yml $LANDO_MOUNT/wp-cli.yml; fi
     run:
-      # Setup WordPress for contributing via git.
-      - if [ ! -e $LANDO_MOUNT/public/core-git ]; then git clone --depth 1 https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/core-git; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-git/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/core-git/wp-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-git/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/core-git/wp-tests-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-git/vendor ]; then cd $LANDO_MOUNT/public/core-git && composer install; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-git/node_modules ]; then cd $LANDO_MOUNT/public/core-git && npm install; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-git/build ]; then cd $LANDO_MOUNT/public/core-git && npx grunt; fi
-      # Setup WordPress for contributing via SVN.
-      - if [ ! -e $LANDO_MOUNT/public/trunk-svn ]; then svn co https://develop.svn.wordpress.org/trunk/ $LANDO_MOUNT/public/trunk-svn; fi
-      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/trunk-svn/wp-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/trunk-svn/wp-tests-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/vendor ]; then cd $LANDO_MOUNT/public/trunk-svn && composer install; fi
-      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/node_modules ]; then cd $LANDO_MOUNT/public/trunk-svn && npm install; fi
-      - if [ ! -e $LANDO_MOUNT/public/trunk-svn/build ]; then cd $LANDO_MOUNT/public/trunk-svn && npx grunt; fi
-      # Install WordPress (for both variants).
+      # Setup WordPress for contributing.
+      - if [ ! -e $LANDO_MOUNT/public/core-dev ]; then git clone https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/core-dev; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-dev/.svn ]; then cd $LANDO_MOUNT; svn co --ignore-externals https://develop.svn.wordpress.org/trunk/ tmp-svn; mv tmp-svn/.svn public/core-dev/.svn; rm -rf tmp-svn; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-dev/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/core-dev/wp-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-dev/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/core-dev/wp-tests-config.php; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-dev/vendor ]; then cd $LANDO_MOUNT/public/core-dev && composer install; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-dev/node_modules ]; then cd $LANDO_MOUNT/public/core-dev && npm install; fi
+      - if [ ! -e $LANDO_MOUNT/public/core-dev/build ]; then cd $LANDO_MOUNT/public/core-dev && npx grunt; fi
+      - cd $LANDO_MOUNT/public/core-dev; if ! git config -l --local | grep -q 'alias.svn-up'; then git config alias.svn-up '! ../../bin/svn-git-up $1'; fi
       - if ! wp core is-installed; then wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"; fi
 
 tooling:
@@ -63,7 +57,7 @@ tooling:
   phpunit:
     service: appserver
     # TODO: This is not the ideal way to force the environment variable to be set, but the .env file does not always persist due to a Lando bug.
-    cmd: "WP_TESTS_DIR=/app/public/core-git/tests/phpunit/ phpunit"
+    cmd: "WP_TESTS_DIR=/app/public/core-dev/tests/phpunit/ phpunit"
   log:
     service: appserver
     cmd: "if [ ! -e /app/public/content/debug.log ]; then touch /app/public/content/debug.log; fi; echo 'Assuming WP_DEBUG_LOG enabled, tailing /app/public/content/debug.log...'; tail -f /app/public/content/debug.log"

@@ -37,7 +37,11 @@ services:
       - if [ ! -e $LANDO_MOUNT/public/core-dev/node_modules ]; then cd $LANDO_MOUNT/public/core-dev && npm install; fi
       - if [ ! -e $LANDO_MOUNT/public/core-dev/build ]; then cd $LANDO_MOUNT/public/core-dev && npx grunt; fi
       - cd $LANDO_MOUNT/public/core-dev; if ! git config -l --local | grep -q 'alias.svn-up'; then git config alias.svn-up '! ../../bin/svn-git-up $1'; fi
-      - if ! wp core is-installed; then wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"; fi
+      - |
+        if ! wp core is-installed; then
+          wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password";
+          wp rewrite structure '/%year%/%monthnum%/%day%/%postname%/';
+        fi
 
 tooling:
   npm:

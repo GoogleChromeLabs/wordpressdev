@@ -5,6 +5,7 @@ public
 !public/wp-tests-config.php
 !public/content/mu-plugins/.gitkeep
 !public/content/mu-plugins/allow-using-default-themes.php
+!public/content/mu-plugins/wp-admin-redirect.php
 !public/content/plugins/.gitkeep
 !public/content/themes/.gitkeep
 

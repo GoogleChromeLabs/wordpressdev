@@ -42,6 +42,8 @@ services:
 tooling:
   npm:
     service: appserver
+  npx:
+    service: appserver
   grunt:
     service: appserver
     cmd: "npx grunt"

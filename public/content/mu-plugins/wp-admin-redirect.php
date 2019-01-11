@@ -8,8 +8,18 @@ Author:      WordPressDev contributors
 Author URI:  https://github.com/felixarntz/wordpressdev
 */
 
-if ( ! empty( $_SERVER['REQUEST_URI'] ) && 0 === strpos( $_SERVER['REQUEST_URI'], '/wp-admin' ) && admin_url() !== home_url( 'wp-admin/' ) ) {
-	// `wp_safe_redirect()` and `wp_redirect()` are not available here yet.
-	header( 'Location: ' . site_url( $_SERVER['REQUEST_URI'] ), true, 301 );
-	exit;
-}
+add_action(
+	'template_redirect',
+	function() {
+		if ( ! is_404() ) {
+			return;
+		}
+
+		if ( empty( $_SERVER['REQUEST_URI'] ) || 0 !== strpos( $_SERVER['REQUEST_URI'], '/wp-admin' ) || admin_url() === home_url( 'wp-admin/' ) ) {
+			return;
+		}
+
+		wp_safe_redirect( site_url( $_SERVER['REQUEST_URI'] ), 301 );
+		exit;
+	}
+);

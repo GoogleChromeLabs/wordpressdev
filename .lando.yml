@@ -55,6 +55,8 @@ services:
 tooling:
   npm:
     service: appserver
+  npx:
+    service: appserver
   yarn:
     service: appserver
   grunt:

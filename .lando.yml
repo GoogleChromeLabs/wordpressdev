@@ -16,6 +16,10 @@ services:
       phpunit/phpunit: "^6"
     install_dependencies_as_root:
       - apt-get update -y
+      - |
+        apt-get -y install libyaml-dev;
+        yes | pecl install yaml;
+        echo 'extension=yaml.so' > /usr/local/etc/php/conf.d/yaml.ini
       - apt-get install gnupg -y
       - |
         curl -sL https://deb.nodesource.com/setup_10.x | bash -;

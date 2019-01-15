@@ -17,8 +17,13 @@ services:
     install_dependencies_as_root:
       - apt-get update -y
       - apt-get install gnupg -y
-      - curl -sL https://deb.nodesource.com/setup_10.x | bash -
-      - apt-get install nodejs -y
+      - |
+        curl -sL https://deb.nodesource.com/setup_10.x | bash -;
+        apt-get install nodejs -y
+      - |
+        curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -;
+        echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list;
+        apt-get update && apt-get install yarn -y
       - apt-get install zip -y
       - apt-get install subversion -y
       # Allow loopback requests to work.
@@ -45,6 +50,8 @@ services:
 
 tooling:
   npm:
+    service: appserver
+  yarn:
     service: appserver
   grunt:
     service: appserver

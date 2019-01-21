@@ -106,6 +106,10 @@ if ( ! defined( 'WP_DEBUG_LOG' ) ) {
 	define( 'WP_DEBUG_LOG', true );
 }
 
+if ( ! defined( 'WP_DISABLE_FATAL_ERROR_HANDLER' ) ) {
+	define( 'WP_DISABLE_FATAL_ERROR_HANDLER', true );
+}
+
 /* That's all, stop editing! Happy blogging. */
 
 if ( defined( 'MULTISITE' ) && MULTISITE ) {

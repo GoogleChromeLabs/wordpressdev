@@ -1,32 +1,19 @@
-/public/*
-!/public/functions.php
-!/public/index.php
-!/public/phpinfo.php
-!/public/wp-config.php
-!/public/wp-tests-config.php
+public
+!public/functions.php
+!public/index.php
+!public/wp-config.php
+!public/wp-tests-config.php
+!public/content/mu-plugins/.gitkeep
+!public/content/mu-plugins/allow-using-default-themes.php
+!public/content/mu-plugins/wp-admin-redirect.php
+!public/content/plugins/.gitkeep
+!public/content/themes/.gitkeep
 
-!/public/content
-/public/content/*
+.env
+!config/.env
 
-!/public/content/mu-plugins
-/public/content/mu-plugins/*
-!/public/content/mu-plugins/.gitkeep
-!/public/content/mu-plugins/allow-using-default-themes.php
-!/public/content/mu-plugins/wp-admin-redirect.php
-
-!/public/content/plugins
-/public/content/plugins/*
-!/public/content/plugins/.gitkeep
-
-!/public/content/themes
-/public/content/themes/*
-!/public/content/themes/.gitkeep
-
-/.env
-!/config/.env
-
-/wp-cli.yml
-!/config/wp-cli.yml
+wp-cli.yml
+!config/wp-cli.yml
 
 [Tt]humbs.db
 [Dd]esktop.ini

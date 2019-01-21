@@ -7,7 +7,6 @@
 
 !/public/content
 /public/content/*
-!/public/content/shutdown-handler.php
 
 !/public/content/mu-plugins
 /public/content/mu-plugins/*

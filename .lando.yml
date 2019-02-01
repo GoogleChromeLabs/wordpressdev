@@ -76,8 +76,6 @@ tooling:
     service: appserver
   phpunit:
     service: appserver
-    # TODO: This is not the ideal way to force the environment variable to be set, but the .env file does not always persist due to a Lando bug.
-    cmd: "WP_TESTS_DIR=/app/public/core-dev/tests/phpunit/ phpunit"
   log:
     service: appserver
     cmd: "if [ ! -e /app/public/content/debug.log ]; then touch /app/public/content/debug.log; fi; echo 'Assuming WP_DEBUG_LOG enabled, tailing /app/public/content/debug.log...'; tail -f /app/public/content/debug.log"

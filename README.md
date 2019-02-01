@@ -31,5 +31,4 @@ If this is your very first Lando project, make sure that your system trusts the 
 * By default, the website you open from the browser will run off the `public/core-dev/build` directory. If you prefer to use WordPress core from another directory (for example `public/core-dev/src`), you need to update the following configurations:
     * all three variables defined in `.env`
     * the path defined in `wp-cli.yml`
-    * the hardcoded `WP_TESTS_DIR` value at the very bottom of `.lando.yml`
 * You can use `lando stop` to turn off the environment and `lando start` to restart it again later. You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).

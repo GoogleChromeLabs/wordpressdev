@@ -19,41 +19,11 @@ services:
       # Note installing phpunit should be temporary because core should really install it via composer on its own.
       phpunit/phpunit: "^6"
     install_dependencies_as_root:
-      - apt-get update -y
-      - |
-        apt-get -y install libyaml-dev;
-        yes | pecl install yaml;
-        echo 'extension=yaml.so' > /usr/local/etc/php/conf.d/yaml.ini
-      - apt-get install gnupg -y
-      - |
-        curl -sL https://deb.nodesource.com/setup_10.x | bash -;
-        apt-get install nodejs -y
-      - |
-        curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -;
-        echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list;
-        apt-get update && apt-get install yarn -y
-      - apt-get install zip -y
-      - apt-get install subversion -y
+      - bash bin/install-dependencies.sh
       # Allow loopback requests to work.
       - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
-    install_dependencies_as_me:
-      # Setup environment variables and WP-CLI configuration.
-      - if [ ! -e $LANDO_MOUNT/wp-cli.yml ]; then cp $LANDO_MOUNT/config/wp-cli.yml $LANDO_MOUNT/wp-cli.yml; fi
     run:
-      # Setup WordPress for contributing.
-      - if [ ! -e $LANDO_MOUNT/public/core-dev ]; then git clone https://github.com/WordPress/wordpress-develop.git $LANDO_MOUNT/public/core-dev; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-dev/.svn ]; then cd $LANDO_MOUNT; svn co --ignore-externals https://develop.svn.wordpress.org/trunk/ tmp-svn; mv tmp-svn/.svn public/core-dev/.svn; rm -rf tmp-svn; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-dev/wp-config.php ]; then cp $LANDO_MOUNT/config/wp-config.php $LANDO_MOUNT/public/core-dev/wp-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-dev/wp-tests-config.php ]; then cp $LANDO_MOUNT/config/wp-tests-config.php $LANDO_MOUNT/public/core-dev/wp-tests-config.php; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-dev/vendor ]; then cd $LANDO_MOUNT/public/core-dev && composer install; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-dev/node_modules ]; then cd $LANDO_MOUNT/public/core-dev && npm install; fi
-      - if [ ! -e $LANDO_MOUNT/public/core-dev/build ]; then cd $LANDO_MOUNT/public/core-dev && npx grunt; fi
-      - cd $LANDO_MOUNT/public/core-dev; if ! git config -l --local | grep -q 'alias.svn-up'; then git config alias.svn-up '! ../../bin/svn-git-up $1'; fi
-      - |
-        if ! wp core is-installed; then
-          wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password";
-          wp rewrite structure '/%year%/%monthnum%/%day%/%postname%/';
-        fi
+      - bash bin/setup-wordpress.sh
 
 tooling:
   npm:

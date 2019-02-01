@@ -10,6 +10,7 @@ config:
   xdebug: false
 
 env_file:
+  - config/.env
   - .env
 
 services:
@@ -37,7 +38,6 @@ services:
       - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
     install_dependencies_as_me:
       # Setup environment variables and WP-CLI configuration.
-      - if [ ! -e $LANDO_MOUNT/.env ]; then cp $LANDO_MOUNT/config/.env $LANDO_MOUNT/.env && sed -i "s#/app#$LANDO_MOUNT#" $LANDO_MOUNT/.env; fi
       - if [ ! -e $LANDO_MOUNT/wp-cli.yml ]; then cp $LANDO_MOUNT/config/wp-cli.yml $LANDO_MOUNT/wp-cli.yml; fi
     run:
       # Setup WordPress for contributing.

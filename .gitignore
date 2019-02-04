@@ -20,3 +20,4 @@ wp-cli.yml
 *.DS_store
 .DS_store?
 .lando.local.yml
+.lando.yml

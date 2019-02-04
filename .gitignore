@@ -12,9 +12,6 @@ public
 .env
 !config/.env
 
-wp-cli.yml
-!config/wp-cli.yml
-
 [Tt]humbs.db
 [Dd]esktop.ini
 *.DS_store
@@ -24,3 +21,4 @@ wp-cli.yml
 
 wp-config-local.php
 wp-tests-config-local.php
+wp-cli.local.yml

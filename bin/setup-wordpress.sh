@@ -9,11 +9,6 @@ fi
 set -e
 set -x
 
-# TODO: Get rid of this?
-if [[ ! -e "$LANDO_MOUNT/wp-cli.yml" ]]; then
-    cp "$LANDO_MOUNT/config/wp-cli.yml" "$LANDO_MOUNT/wp-cli.yml"
-fi
-
 if [[ ! -e "$LANDO_MOUNT/public/core-dev" ]]; then
     git clone https://github.com/WordPress/wordpress-develop.git "$LANDO_MOUNT/public/core-dev"
 fi

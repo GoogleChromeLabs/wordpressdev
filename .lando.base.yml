@@ -10,7 +10,7 @@ config:
   xdebug: false
 
 env_file:
-  - config/.env
+  - .env.base
   - .env
 
 services:

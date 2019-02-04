@@ -10,7 +10,6 @@ public
 !public/content/themes/.gitkeep
 
 .env
-!config/.env
 
 [Tt]humbs.db
 [Dd]esktop.ini

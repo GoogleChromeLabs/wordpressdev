@@ -88,6 +88,7 @@ $constants = array(
 	'WP_DEBUG'                       => true,
 	'WP_DEBUG_LOG'                   => true,
 	'WP_DISABLE_FATAL_ERROR_HANDLER' => true,
+	'JETPACK_DEV_DEBUG'              => true,
 );
 foreach ( $constants as $constant_name => $constant_value ) {
 	if ( ! defined( $constant_name ) ) {

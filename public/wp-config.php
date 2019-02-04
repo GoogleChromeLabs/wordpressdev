@@ -82,33 +82,19 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 	require dirname( dirname( __FILE__ ) ) . '/wp-config-local.php';
 }
 
-if ( ! defined( 'FORCE_SSL_ADMIN' ) ) {
-	define( 'FORCE_SSL_ADMIN', true );
+// Define constants that haven't been overridden by wp-tests-config-local.php.
+$constants = array(
+	'FORCE_SSL_ADMIN'                => true,
+	'WP_DEBUG'                       => true,
+	'WP_DEBUG_LOG'                   => true,
+	'WP_DISABLE_FATAL_ERROR_HANDLER' => true,
+);
+foreach ( $constants as $constant_name => $constant_value ) {
+	if ( ! defined( $constant_name ) ) {
+		define( $constant_name, $constant_value );
+	}
 }
-
-/**
- * For developers: WordPress debugging mode.
- *
- * Change this to true to enable the display of notices during development.
- * It is strongly recommended that plugin and theme developers use WP_DEBUG
- * in their development environments.
- *
- * For information on other constants that can be used for debugging,
- * visit the Codex.
- *
- * @link https://codex.wordpress.org/Debugging_in_WordPress
- */
-if ( ! defined( 'WP_DEBUG' ) ) {
-	define( 'WP_DEBUG', true );
-}
-
-if ( ! defined( 'WP_DEBUG_LOG' ) ) {
-	define( 'WP_DEBUG_LOG', true );
-}
-
-if ( ! defined( 'WP_DISABLE_FATAL_ERROR_HANDLER' ) ) {
-	define( 'WP_DISABLE_FATAL_ERROR_HANDLER', true );
-}
+unset( $constants );
 
 /* That's all, stop editing! Happy blogging. */
 

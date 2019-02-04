@@ -43,11 +43,6 @@ define( 'NONCE_SALT',       'put your unique phrase here' );
 
 $table_prefix = 'wptests_';   // Only numbers, letters, and underscores please!
 
-define( 'WP_TESTS_DOMAIN', 'example.org' );
-define( 'WP_TESTS_EMAIL', 'admin@example.org' );
-define( 'WP_TESTS_TITLE', 'Test Blog' );
-define( 'WP_HOME', 'http://example.org' );
-
 // Allow local environment to override config.
 if ( file_exists( dirname( __FILE__ ) . '/wp-tests-config-local.php' ) ) {
 	require dirname( __FILE__ ) . '/wp-tests-config-local.php';
@@ -55,15 +50,32 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-tests-config-local.php' ) ) {
 	require dirname( dirname( __FILE__ ) ) . '/wp-tests-config-local.php';
 }
 
-/*
- * Path to the theme to test with.
- *
- * The 'default' theme is symlinked from test/phpunit/data/themedir1/default into
- * the themes directory of the WordPress installation defined above.
- */
-if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
-	define( 'WP_DEFAULT_THEME', 'default' );
+// Define constants that haven't been overridden by wp-tests-config-local.php.
+$constants = array(
+	'WP_TESTS_DOMAIN'  => 'example.org',
+	'WP_TESTS_EMAIL'   => 'admin@example.org',
+	'WP_TESTS_TITLE'   => 'Test Blog',
+	'WP_HOME'          => 'http://example.org',
+
+	/*
+	 * Path to the theme to test with.
+	 *
+	 * The 'default' theme is symlinked from test/phpunit/data/themedir1/default into
+	 * the themes directory of the WordPress installation defined above.
+	 */
+	'WP_DEFAULT_THEME' => 'default',
+
+	// Test with WordPress debug mode (default).
+	'WP_DEBUG'         => true,
+	'WPLANG'           => '',
+	'WP_PHP_BINARY'    => 'php',
+);
+foreach ( $constants as $constant_name => $constant_value ) {
+	if ( ! defined( $constant_name ) ) {
+		define( $constant_name, $constant_value );
+	}
 }
+unset( $constants );
 
 // Test with multisite enabled.
 // Alternatively, use the tests/phpunit/multisite.xml configuration file.
@@ -73,15 +85,7 @@ if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 // Tests with an associated Trac ticket that is still open are normally skipped.
 // define( 'WP_TESTS_FORCE_KNOWN_BUGS', true );
 
-// Test with WordPress debug mode (default).
-if ( ! defined( 'WP_DEBUG' ) ) {
-	define( 'WP_DEBUG', true );
-}
-
 /* That's all, stop editing! Happy blogging. */
 
 // Set 'WP_SITEURL' and 'WP_CONTENT_URL' based on 'WP_HOME'.
 _wordpressdev_set_url_constants();
-
-define( 'WP_PHP_BINARY', 'php' );
-define( 'WPLANG', '' );

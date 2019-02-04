@@ -19,3 +19,5 @@ wp-cli.yml
 [Dd]esktop.ini
 *.DS_store
 .DS_store?
+.lando.local.yml
+.lando.yml

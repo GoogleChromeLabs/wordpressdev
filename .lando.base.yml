@@ -1,0 +1,53 @@
+name: wordpressdev
+
+recipe: wordpress
+
+config:
+  php: '7.2'
+  via: nginx
+  webroot: public
+  database: mariadb
+  xdebug: false
+
+env_file:
+  - config/.env
+  - .env
+
+services:
+  appserver:
+    composer:
+      # Note installing phpunit should be temporary because core should really install it via composer on its own.
+      phpunit/phpunit: "^6"
+    install_dependencies_as_root:
+      - bash bin/install-dependencies.sh
+      # Allow loopback requests to work.
+      - echo "127.0.0.1  wordpressdev.lando.site" >> /etc/hosts
+    run:
+      - bash bin/setup-wordpress.sh
+
+tooling:
+  npm:
+    service: appserver
+  npx:
+    service: appserver
+  yarn:
+    service: appserver
+  grunt:
+    service: appserver
+    cmd: "npx grunt"
+  gulp:
+    service: appserver
+    cmd: "npx gulp"
+  composer:
+    service: appserver
+  git:
+    service: appserver
+  svn:
+    service: appserver
+  phpunit:
+    service: appserver
+  log:
+    service: appserver
+    cmd: "if [ ! -e /app/public/content/debug.log ]; then touch /app/public/content/debug.log; fi; echo 'Assuming WP_DEBUG_LOG enabled, tailing /app/public/content/debug.log...'; tail -f /app/public/content/debug.log"
+  wp:
+    service: appserver

@@ -75,7 +75,7 @@ foreach ( $constants as $constant_name => $constant_value ) {
 		define( $constant_name, $constant_value );
 	}
 }
-unset( $constants );
+unset( $constants, $constant_name, $constant_value );
 
 // Test with multisite enabled.
 // Alternatively, use the tests/phpunit/multisite.xml configuration file.

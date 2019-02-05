@@ -18,6 +18,13 @@
  * @package WordPress
  */
 
+// Allow local environment to override config.
+if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
+	require dirname( __FILE__ ) . '/wp-config-local.php';
+} elseif ( file_exists( dirname( dirname( __FILE__ ) ) . '/wp-config-local.php' ) ) {
+	require dirname( dirname( __FILE__ ) ) . '/wp-config-local.php';
+}
+
 // Load custom functions.
 if ( ! function_exists( '_wordpressdev_set_directory_constants' ) ) {
 	require_once dirname( __FILE__ ) . '/functions.php';
@@ -28,45 +35,6 @@ if ( ! defined( 'WP_CORE_PATH_RELATIVE' ) ) {
 	_wordpressdev_set_directory_constants();
 }
 
-// ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
-
-/** MySQL database username */
-define( 'DB_USER', 'wordpress' );
-
-/** MySQL database password */
-define( 'DB_PASSWORD', 'wordpress' );
-
-/** MySQL hostname */
-define( 'DB_HOST', 'database:3306' );
-
-/** Database Charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8' );
-
-/** The Database Collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
-
-/**#@+
- * Authentication Unique Keys and Salts.
- *
- * Change these to different unique phrases!
- * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
- * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
- *
- * @since 2.6.0
- */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
-
-/**#@-*/
-
 /**
  * WordPress Database Table prefix.
  *
@@ -75,15 +43,24 @@ define( 'NONCE_SALT',       'put your unique phrase here' );
  */
 $table_prefix = 'wp_';
 
-// Allow local environment to override config.
-if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
-	require dirname( __FILE__ ) . '/wp-config-local.php';
-} elseif ( file_exists( dirname( dirname( __FILE__ ) ) . '/wp-config-local.php' ) ) {
-	require dirname( dirname( __FILE__ ) ) . '/wp-config-local.php';
-}
-
 // Define constants that haven't been overridden by wp-tests-config-local.php.
 $constants = array(
+	'DB_NAME'                        => 'wordpress',
+	'DB_USER'                        => 'wordpress',
+	'DB_PASSWORD'                    => 'wordpress',
+	'DB_HOST'                        => 'database:3306',
+	'DB_CHARSET'                     => 'utf8',
+	'DB_COLLATE'                     => '',
+
+	'AUTH_KEY'                       => 'put your unique phrase here',
+	'SECURE_AUTH_KEY'                => 'put your unique phrase here',
+	'LOGGED_IN_KEY'                  => 'put your unique phrase here',
+	'NONCE_KEY'                      => 'put your unique phrase here',
+	'AUTH_SALT'                      => 'put your unique phrase here',
+	'SECURE_AUTH_SALT'               => 'put your unique phrase here',
+	'LOGGED_IN_SALT'                 => 'put your unique phrase here',
+	'NONCE_SALT'                     => 'put your unique phrase here',
+
 	'FORCE_SSL_ADMIN'                => true,
 	'WP_DEBUG'                       => true,
 	'WP_DEBUG_LOG'                   => true,

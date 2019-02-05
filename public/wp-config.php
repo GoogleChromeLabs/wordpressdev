@@ -19,15 +19,15 @@
  */
 
 // Allow local environment to override config.
-if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
-	require dirname( __FILE__ ) . '/wp-config-local.php';
-} elseif ( file_exists( dirname( dirname( __FILE__ ) ) . '/wp-config-local.php' ) ) {
-	require dirname( dirname( __FILE__ ) ) . '/wp-config-local.php';
+if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
+	require __DIR__ . '/wp-config-local.php';
+} elseif ( file_exists( dirname( __DIR__ ) . '/wp-config-local.php' ) ) {
+	require dirname( __DIR__ ) . '/wp-config-local.php';
 }
 
 // Load custom functions.
 if ( ! function_exists( '_wordpressdev_set_directory_constants' ) ) {
-	require_once dirname( __FILE__ ) . '/functions.php';
+	require_once __DIR__ . '/functions.php';
 }
 
 // Detect and set WordPress core and content locations.

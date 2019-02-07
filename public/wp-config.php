@@ -92,5 +92,3 @@ if ( defined( 'MULTISITE' ) && MULTISITE ) {
 	// Set 'WP_SITEURL' and 'WP_CONTENT_URL' based on 'WP_HOME'.
 	_wordpressdev_set_url_constants();
 }
-
-require_once ABSPATH . 'wp-settings.php';

@@ -1,0 +1,2 @@
+# DO NOT MODIFY THIS FILE! Instead, please create a copy named wp-cli.local.yml and make modifications there.
+path: public/core-dev/build

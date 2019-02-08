@@ -10,10 +10,6 @@ public
 !public/content/themes/.gitkeep
 
 .env
-!config/.env
-
-wp-cli.yml
-!config/wp-cli.yml
 
 [Tt]humbs.db
 [Dd]esktop.ini
@@ -21,3 +17,7 @@ wp-cli.yml
 .DS_store?
 .lando.local.yml
 .lando.yml
+
+wp-config-local.php
+wp-tests-config-local.php
+wp-cli.local.yml

@@ -15,9 +15,15 @@ fi
 
 if [[ ! -e "$LANDO_MOUNT/public/core-dev/.svn" ]]; then
     cd "$LANDO_MOUNT"
-    svn co --ignore-externals https://develop.svn.wordpress.org/trunk/ tmp-svn
-    mv tmp-svn/.svn public/core-dev/.svn
-    rm -rf tmp-svn
+    if svn co --ignore-externals https://develop.svn.wordpress.org/trunk/ tmp-svn; then
+        mv tmp-svn/.svn public/core-dev/.svn
+        rm -rf tmp-svn
+    else
+        echo "SVN failed to install. Nevertheless, you should still be able to run WordPress."
+        if [[ -e tmp-svn ]]; then
+            rm -rf tmp-svn
+        fi
+    fi
 fi
 
 cd "$LANDO_MOUNT/public/core-dev"

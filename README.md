@@ -1,4 +1,4 @@
-# WordPress Development Environment
+# WordPressDev Environment
 
 This is a [WordPress development](https://make.wordpress.org) environment based on [Lando](https://docs.devwithlando.io/). It allows for [core development](https://make.wordpress.org/core/), [plugin development](https://make.wordpress.org/plugins/), and [theme development](https://make.wordpress.org/themes/).
 
@@ -32,3 +32,7 @@ An additional note on Lando: The project is currently approaching its version 3.
 * WordPress plugin and theme development should happen in `public/content`, which is a custom `wp-content` directory, decoupled from the WordPress core repository. The environment automatically takes care of setting WordPress constants appropriately so that the core and content directories are connected, so you don't need to worry about this.
 * You can use `lando stop` to turn off the environment and `lando start` to restart it again later. You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
 * You can customize the environment. Variables placed in a custom `.env` file in the root directory will override similar variables from the `.env.base` file. Custom CLI configuration can be set up via a `wp-cli.local.yml` file (taking precedence over `wp-cli.yml`), and even custom Lando configuration is possible via a `.lando.yml` file (taking precedence over `.lando.base.yml`). For changes to the Lando configuration or environment variables, you will need to run `lando rebuild` to apply them.
+
+## Contributing
+
+Any kind of contributions to Feature Policy are welcome. Please [read the contributing guidelines](https://github.com/GoogleChromeLabs/wp-feature-policy/blob/master/CONTRIBUTING.md) to get started.

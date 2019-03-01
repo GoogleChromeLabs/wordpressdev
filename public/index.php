@@ -1,9 +1,10 @@
 <?php
 /**
- * Front to the WordPress application. This file doesn't do anything, but loads
- * wp-blog-header.php which does and tells WordPress to load the theme.
+ * Custom index.php file to set up additional configuration and load WordPress.
  *
- * @package WordPress
+ * @copyright 2019 Google LLC
+ * @license   GNU General Public License, version 2
+ * @link      https://github.com/GoogleChromeLabs/wordpressdev
  */
 
 // Load custom functions.

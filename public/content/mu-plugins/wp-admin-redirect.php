@@ -1,12 +1,19 @@
 <?php
-/*
-Plugin Name: WP-Admin Redirect
-Plugin URI:  https://github.com/felixarntz/wordpressdev
-Description: Redirects the plain /wp-admin/ URL to its actual location in the WordPress core subdirectory.
-Version:     1.0.0
-Author:      WordPressDev contributors
-Author URI:  https://github.com/felixarntz/wordpressdev
-*/
+/**
+ * Must-use utility plugin.
+ *
+ * @copyright 2019 Google LLC
+ * @license   GNU General Public License, version 2
+ * @link      https://github.com/GoogleChromeLabs/wordpressdev
+ *
+ * @wordpress-plugin
+ * Plugin Name: WP-Admin Redirect
+ * Plugin URI:  https://github.com/GoogleChromeLabs/wordpressdev
+ * Description: Redirects the plain /wp-admin/ URL to its actual location in the WordPress core subdirectory.
+ * Version:     1.0.0
+ * Author:      Google and WordPressDev contributors
+ * Author URI:  https://github.com/GoogleChromeLabs/wordpressdev
+ */
 
 add_action(
 	'template_redirect',

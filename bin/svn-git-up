@@ -1,7 +1,20 @@
 #!/bin/bash
-# Update Git and SVN repos checked out in the same directory.
+#
+# This scripts updates Git and SVN repos checked out in the same directory.
 #
 # Pass a branch name like 4.6 as the sole argument to checkout that branch. Otherwise, master/trunk is checked out.
+# 
+# WordPressDev, Copyright 2019 Google LLC
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
 cd $( git rev-parse --show-toplevel )
 

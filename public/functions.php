@@ -2,7 +2,9 @@
 /**
  * Custom functions to load before WordPress is loaded.
  *
- * @package WordPress
+ * @copyright 2019 Google LLC
+ * @license   GNU General Public License, version 2
+ * @link      https://github.com/GoogleChromeLabs/wordpressdev
  */
 
 /**

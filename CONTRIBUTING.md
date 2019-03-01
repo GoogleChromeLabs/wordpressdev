@@ -6,7 +6,7 @@ Bug reports, patches, and other contributions are very welcome. When contributin
 
 When writing a bug report...
 
-* [open an issue](https://github.com/GoogleChromeLabs/wp-feature-policy/issues/new)
+* [open an issue](https://github.com/GoogleChromeLabs/wordpressdev/issues/new)
 * clearly explain what you're experiencing and include relevant details about your environment
 
 ## Contributing Code
@@ -18,7 +18,7 @@ When contributing code...
     * when writing PHP code, make sure you stick to the [WordPress](https://make.wordpress.org/core/handbook/best-practices/coding-standards/) coding standards
     * make sure you document the code properly
 * when committing, in addition to a note about the fix, please reference your issue (if present)
-* push the changes to your fork and [submit a pull request](https://github.com/GoogleChromeLabs/wp-feature-policy/compare) to the `master` branch
+* push the changes to your fork and [submit a pull request](https://github.com/GoogleChromeLabs/wordpressdev/compare) to the `master` branch
 
 ### Contributor License Agreement
 

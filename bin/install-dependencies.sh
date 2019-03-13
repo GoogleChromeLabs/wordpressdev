@@ -20,7 +20,7 @@ if [[ -z "$LANDO_MOUNT" ]]; then
 fi
 
 echo "Installing Dependencies"
-set -x
+set -xe
 
 apt-get update -y
 apt-get -y install libyaml-dev

@@ -19,7 +19,9 @@ config:
   via: nginx
   webroot: public
   database: mariadb
-  xdebug: false
+  xdebug: true
+  config:
+    php: php.ini
 
 env_file:
   - .env.base

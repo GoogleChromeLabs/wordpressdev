@@ -1,6 +1,6 @@
 # WordPressDev Environment
 
-This is a [WordPress development](https://make.wordpress.org) environment based on [Lando](https://docs.devwithlando.io/). It allows for [core development](https://make.wordpress.org/core/), [plugin development](https://make.wordpress.org/plugins/), and [theme development](https://make.wordpress.org/themes/).
+This is a [WordPress development](https://make.wordpress.org) environment based on [Lando](https://docs.devwithlando.io/). It allows for [core development](https://make.wordpress.org/core/), [plugin development](https://make.wordpress.org/plugins/), and [theme development](https://make.wordpress.org/themes/). It is intended to largely be a Docker-based port of [VVV](https://varyingvagrantvagrants.org/).
 
 **Disclaimer:** There is no official support for this environment. Our team at Google is using it, and we are happy to share it and collaborate on it with the WordPress community. The environment is still in a very early development stage, so use it at your own risk.
 

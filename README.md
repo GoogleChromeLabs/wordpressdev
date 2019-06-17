@@ -35,4 +35,4 @@ An additional note on Lando: The project is currently approaching its version 3.
 
 ## Contributing
 
-Any kind of contributions to Feature Policy are welcome. Please [read the contributing guidelines](https://github.com/GoogleChromeLabs/wordpressdev/blob/master/CONTRIBUTING.md) to get started.
+Any kind of contributions to WordPressDev are welcome. Please [read the contributing guidelines](https://github.com/GoogleChromeLabs/wordpressdev/blob/master/CONTRIBUTING.md) to get started.

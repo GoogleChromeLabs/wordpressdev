@@ -29,6 +29,7 @@ public
 .DS_store?
 .lando.local.yml
 .lando.yml
+.idea
 
 wp-config-local.php
 wp-tests-config-local.php

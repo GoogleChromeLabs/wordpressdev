@@ -15,8 +15,6 @@ name: wordpressdev
 recipe: wordpress
 
 config:
-  php: '7.2'
-  via: nginx
   webroot: public
   database: mariadb
   xdebug: false
@@ -27,11 +25,19 @@ env_file:
 
 services:
   appserver:
+    type: php:custom
+    overrides:
+      image: westonruter/php:7.3-with-node12
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      environment:
+        # Support debugging with XDEBUG.
+        PHP_IDE_CONFIG: "serverName=appserver"
     composer:
       # Note installing phpunit should be temporary because core should really install it via composer on its own.
       phpunit/phpunit: "^6"
     install_dependencies_as_root:
-      - bash bin/install-dependencies.sh
       # Allow loopback requests to work.
       - echo "127.0.0.1  wordpressdev.lndo.site" >> /etc/hosts
     run:

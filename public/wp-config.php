@@ -52,7 +52,7 @@ $constants = array(
 
 	'FORCE_SSL_ADMIN'                => true,
 	'WP_DEBUG'                       => true,
-	'WP_DEBUG_LOG'                   => true,
+	'WP_DEBUG_LOG'                   => '/tmp/php-error.log',
 	'WP_DISABLE_FATAL_ERROR_HANDLER' => true,
 	'JETPACK_DEV_DEBUG'              => true,
 );

@@ -38,6 +38,8 @@ services:
       - echo "127.0.0.1  wordpressdev.lndo.site" >> /etc/hosts
     run:
       - bash bin/setup-wordpress.sh
+    run_as_root:
+      - bash /app/bin/xdebug-resume.sh
 
 tooling:
   npm:
@@ -62,6 +64,16 @@ tooling:
     service: appserver
   log:
     service: appserver
-    cmd: "bash /app/bin/tail-php-error-log.sh"
+    cmd: bash /app/bin/tail-php-error-log.sh
   wp:
     service: appserver
+  xdebug-on:
+    service: appserver
+    description: Enable Xdebug for nginx.
+    cmd: bash /app/bin/xdebug-on.sh
+    user: root
+  xdebug-off:
+    service: appserver
+    description: Disable Xdebug for nginx.
+    cmd: bash /app/bin/xdebug-off.sh
+    user: root

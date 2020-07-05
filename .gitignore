@@ -34,3 +34,7 @@ public
 wp-config-local.php
 wp-tests-config-local.php
 wp-cli.local.yml
+
+# This file is added by xdebug-on.sh; when present, Xdebug is re-enabled
+# after rebuilding.
+.xdebug-enabled

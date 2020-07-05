@@ -19,7 +19,7 @@ config:
   via: nginx
   webroot: public
   database: mariadb
-  xdebug: true
+  xdebug: false # This needs to be false initially because otherwise provisioning takes much longer.
   config:
     php: php.ini
 

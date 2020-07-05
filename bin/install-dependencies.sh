@@ -29,7 +29,7 @@ echo 'extension=yaml.so' > /usr/local/etc/php/conf.d/yaml.ini
 
 apt-get install gnupg -y
 
-curl -sL https://deb.nodesource.com/setup_10.x | bash -
+curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get install nodejs -y
 
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -

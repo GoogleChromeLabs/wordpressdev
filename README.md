@@ -1,6 +1,6 @@
 # WordPressDev Environment
 
-This is a [WordPress development](https://make.wordpress.org) environment based on [Lando](https://docs.devwithlando.io/). It allows for [core development](https://make.wordpress.org/core/), [plugin development](https://make.wordpress.org/plugins/), and [theme development](https://make.wordpress.org/themes/).
+This is a [WordPress development](https://make.wordpress.org) environment based on [Lando](https://docs.devwithlando.io/). It allows for [core development](https://make.wordpress.org/core/), [plugin development](https://make.wordpress.org/plugins/), and [theme development](https://make.wordpress.org/themes/). It is intended to largely be a Docker-based port of [VVV](https://varyingvagrantvagrants.org/).
 
 **Disclaimer:** There is no official support for this environment. Our team at Google is using it, and we are happy to share it and collaborate on it with the WordPress community. The environment is still in a very early development stage, so use it at your own risk.
 
@@ -17,7 +17,7 @@ This is a [WordPress development](https://make.wordpress.org) environment based 
 * Install the latest version of Lando via a [GitHub DMG file](https://github.com/lando/lando/releases). You also need to have Docker installed, but Lando will take care of that for you if you don't.
 * Clone this repository into a directory of your choice. Navigate to that directory.
 * Run `lando start`. When doing this for the first time, it will set the environment up for you, so it will take a bit longer than on subsequent starts.
-* Access your site under `https://wordpressdev.lndo.site/`. If you're having trouble connecting, you may be facing the [DNS Rebinding Protection issue](https://docs.devwithlando.io/issues/dns-rebind.html). To fix this, and to ensure you can develop while offline, follow the [Working Offline](https://docs.devwithlando.io/config/proxy.html#working-offline-or-using-custom-domains) steps. In other words, add the folliwng to your host machine's `/etc/hosts` file:
+* Access your site under `https://wordpressdev.lndo.site/`. If you're having trouble connecting, you may be facing the [DNS Rebinding Protection issue](https://docs.devwithlando.io/issues/dns-rebind.html). To fix this, and to ensure you can develop while offline, follow the [Working Offline](https://docs.devwithlando.io/config/proxy.html#working-offline-or-using-custom-domains) steps. In other words, add the following to your host machine's `/etc/hosts` file:
 ```
 127.0.0.1       wordpressdev.lndo.site
 ```
@@ -35,4 +35,4 @@ An additional note on Lando: The project is currently approaching its version 3.
 
 ## Contributing
 
-Any kind of contributions to Feature Policy are welcome. Please [read the contributing guidelines](https://github.com/GoogleChromeLabs/wp-feature-policy/blob/master/CONTRIBUTING.md) to get started.
+Any kind of contributions to WordPressDev are welcome. Please [read the contributing guidelines](https://github.com/GoogleChromeLabs/wordpressdev/blob/master/CONTRIBUTING.md) to get started.

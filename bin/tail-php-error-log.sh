@@ -14,10 +14,13 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-if [[ ! -e /app/public/content/debug.log ]]; then
-    touch /app/public/content/debug.log
+# See WP_DEBUG_LOG in wp-config.php.
+ERROR_LOG_PATH="/tmp/php-error.log"
+
+if [[ ! -e "$ERROR_LOG_PATH" ]]; then
+    touch "$ERROR_LOG_PATH"
 fi
 
-echo 'Assuming WP_DEBUG_LOG enabled, tailing /app/public/content/debug.log...'
+echo "Assuming WP_DEBUG_LOG defined and set to $ERROR_LOG_PATH..."
 
-tail -f /app/public/content/debug.log
+tail -f "$ERROR_LOG_PATH"

@@ -15,7 +15,7 @@ name: wordpressdev
 recipe: wordpress
 
 config:
-  php: '7.2'
+  php: '7.4'
   via: nginx
   webroot: public
   database: mariadb

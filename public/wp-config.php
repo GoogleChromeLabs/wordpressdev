@@ -55,6 +55,7 @@ $constants = array(
 	'WP_DEBUG_LOG'                   => '/tmp/php-error.log',
 	'WP_DISABLE_FATAL_ERROR_HANDLER' => true,
 	'JETPACK_DEV_DEBUG'              => true,
+	'WP_ENVIRONMENT_TYPE'            => 'development',
 );
 foreach ( $constants as $constant_name => $constant_value ) {
 	if ( ! defined( $constant_name ) ) {

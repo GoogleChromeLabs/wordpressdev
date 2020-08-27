@@ -43,7 +43,7 @@ You can now pull down from the upstream via `git pull origin` or push to your re
 
 ##### Setup Your Workspace
 
-You will work and commit in the `./public/core-dev/src` directory while your changes are reflected on the frontend from the `./public/core-dev/build` directory. Consult the `./public/core-dev/src/package.json` for avaiable commands such as `npm run watch` to aid your workflow.
+You will work and commit in the `./public/core-dev/src` directory while your changes are reflected on the frontend from the `./public/core-dev/build` directory. Consult `./public/core-dev/composer.json` or `./public/core-dev/package.json` for avaiable commands such as `npm run watch` to aid your workflow.
 
 1. Create a [Trac ticket](https://make.wordpress.org/core/reports/) with your proposed changes.
 2. Create a branch with your ticket ID as reference with `git checkout -b trac-XXXXX`.
@@ -67,7 +67,7 @@ You can customize the environment. Variables placed in a custom `.env` file in t
 
 Run `lando stop` to turn off the environment and `lando start` to restart it again later. 
 
-Run `lando phpunit` to run all tests or `lando phpunit tests/phpunit/tests/<directory-name>` to run a specific set of tests.
+Run `lando phpunit` to perform all tests or `lando phpunit tests/phpunit/tests/<directory-name>` to perform a specific set of tests.
 
 You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
 

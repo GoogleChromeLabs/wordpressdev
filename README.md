@@ -28,10 +28,21 @@ An additional note on Lando: The project is currently approaching its version 3.
 
 ## Usage
 
-* WordPress core contributions are done in the `public/core-dev` directory which is both a Git clone and SVN checkout. To update the Git and SVN in tandem, do `git svn-up` in that directory to update to the latest `trunk`/`master`. To switch/update another branch, do `git svn-up $branch`. This `git svn-up` command is an alias to the repo's [`bin/svn-git-up`](bin/svn-git-up) script.
-* WordPress plugin and theme development should happen in `public/content`, which is a custom `wp-content` directory, decoupled from the WordPress core repository. The environment automatically takes care of setting WordPress constants appropriately so that the core and content directories are connected, so you don't need to worry about this.
-* You can use `lando stop` to turn off the environment and `lando start` to restart it again later. You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
-* You can customize the environment. Variables placed in a custom `.env` file in the root directory will override similar variables from the `.env.base` file. Custom CLI configuration can be set up via a `wp-cli.local.yml` file (taking precedence over `wp-cli.yml`), and even custom Lando configuration is possible via a `.lando.yml` file (taking precedence over `.lando.base.yml`). For changes to the Lando configuration or environment variables, you will need to run `lando rebuild` to apply them.
+#### Contributing to Core
+
+WordPress core contributions are done in the `public/core-dev` directory which is both a Git clone and SVN checkout. To update the Git and SVN in tandem, do `git svn-up` in that directory to update to the latest `trunk`/`master`. To switch/update another branch, do `git svn-up $branch`. This `git svn-up` command is an alias to the repo's [`bin/svn-git-up`](bin/svn-git-up) script.
+
+#### Theme and Plugin Development
+
+WordPress plugin and theme development should happen in `public/content`, which is a custom `wp-content` directory, decoupled from the WordPress core repository. The environment automatically takes care of setting WordPress constants appropriately so that the core and content directories are connected, so you don't need to worry about this.
+
+#### Environment Configuration
+
+You can customize the environment. Variables placed in a custom `.env` file in the root directory will override similar variables from the `.env.base` file. Custom CLI configuration can be set up via a `wp-cli.local.yml` file (taking precedence over `wp-cli.yml`), and even custom Lando configuration is possible via a `.lando.yml` file (taking precedence over `.lando.base.yml`). For changes to the Lando configuration or environment variables, you will need to run `lando rebuild` to apply them.
+
+#### Lando Commands
+
+You can use `lando stop` to turn off the environment and `lando start` to restart it again later. You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
 
 ## Troubleshooting
 

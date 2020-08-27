@@ -42,7 +42,11 @@ You can customize the environment. Variables placed in a custom `.env` file in t
 
 #### Lando Commands
 
-You can use `lando stop` to turn off the environment and `lando start` to restart it again later. You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
+Run `lando stop` to turn off the environment and `lando start` to restart it again later. 
+
+Run `lando phpunit` to run all tests or `lando phpunit tests/phpunit/tests/<directory-name>` to run a specific set of tests.
+
+You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
 
 ## Troubleshooting
 

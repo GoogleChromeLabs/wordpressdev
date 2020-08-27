@@ -33,6 +33,10 @@ An additional note on Lando: The project is currently approaching its version 3.
 * You can use `lando stop` to turn off the environment and `lando start` to restart it again later. You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
 * You can customize the environment. Variables placed in a custom `.env` file in the root directory will override similar variables from the `.env.base` file. Custom CLI configuration can be set up via a `wp-cli.local.yml` file (taking precedence over `wp-cli.yml`), and even custom Lando configuration is possible via a `.lando.yml` file (taking precedence over `.lando.base.yml`). For changes to the Lando configuration or environment variables, you will need to run `lando rebuild` to apply them.
 
+## Troubleshooting
+
+If you are having problems after running `landor start` such as `git svn-up` not recognizing the `.svn` or `.git` directories, run `lando rebuild` to rebuild the entire `./public/core-dev` directory.
+
 ## Contributing
 
 Any kind of contributions to WordPressDev are welcome. Please [read the contributing guidelines](https://github.com/GoogleChromeLabs/wordpressdev/blob/master/CONTRIBUTING.md) to get started.

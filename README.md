@@ -69,7 +69,7 @@ Run `lando stop` to turn off the environment and `lando start` to restart it aga
 
 Run `lando phpunit` to perform all tests or `lando phpunit tests/phpunit/tests/<directory-name>` to perform a specific set of tests.
 
-You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
+You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/) or by running `lando` in your terminal.
 
 ## Troubleshooting
 

@@ -32,6 +32,29 @@ An additional note on Lando: The project is currently approaching its version 3.
 
 WordPress core contributions are done in the `public/core-dev` directory which is both a Git clone and SVN checkout. To update the Git and SVN in tandem, do `git svn-up` in that directory to update to the latest `trunk`/`master`. To switch/update another branch, do `git svn-up $branch`. This `git svn-up` command is an alias to the repo's [`bin/svn-git-up`](bin/svn-git-up) script.
 
+##### Setup Your Fork
+
+1. Fork the [wordpress-develop](https://github.com/WordPress/wordpress-develop) repository to your GitHub account. 
+2. In your teriminal, navigate to the `./public/core-dev` directory.
+3. Add the GitHub repository as a remote. 
+```git remote add <remote-name> git@github.com:<github-account>/wordpress-develop.git```
+
+You can now pull down from the upstream via `git pull origin` or push to your remote with `git push <remote-name>`.
+
+##### Setup Your Workspace
+
+You will work and commit in the `./public/core-dev/src` directory while your changes are reflected on the frontend from the `./public/core-dev/build` directory. Consult the `./public/core-dev/src/package.json` for avaiable commands such as `npm run watch` to aid your workflow.
+
+1. Create a [Trac ticket](https://make.wordpress.org/core/reports/) with your proposed changes.
+2. Create a branch with your ticket ID as reference with `git checkout -b trac-XXXXX`.
+3. Watch for file changes by running `npm run watch` from inside the `./public/core-dev/src` directory.
+4. Make your changes. 
+5. Commit early and often. 
+6. Write tests. 
+7. Push your changes to your GitHub remote with `git push <remote-name>`.
+
+Now you can view your changes on GitHub and send the pull request to the [wordpress-develop](https://github.com/WordPress/wordpress-develop) repository.
+
 #### Theme and Plugin Development
 
 WordPress plugin and theme development should happen in `public/content`, which is a custom `wp-content` directory, decoupled from the WordPress core repository. The environment automatically takes care of setting WordPress constants appropriately so that the core and content directories are connected, so you don't need to worry about this.

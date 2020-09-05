@@ -28,10 +28,52 @@ An additional note on Lando: The project is currently approaching its version 3.
 
 ## Usage
 
-* WordPress core contributions are done in the `public/core-dev` directory which is both a Git clone and SVN checkout. To update the Git and SVN in tandem, do `git svn-up` in that directory to update to the latest `trunk`/`master`. To switch/update another branch, do `git svn-up $branch`. This `git svn-up` command is an alias to the repo's [`bin/svn-git-up`](bin/svn-git-up) script.
-* WordPress plugin and theme development should happen in `public/content`, which is a custom `wp-content` directory, decoupled from the WordPress core repository. The environment automatically takes care of setting WordPress constants appropriately so that the core and content directories are connected, so you don't need to worry about this.
-* You can use `lando stop` to turn off the environment and `lando start` to restart it again later. You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/).
-* You can customize the environment. Variables placed in a custom `.env` file in the root directory will override similar variables from the `.env.base` file. Custom CLI configuration can be set up via a `wp-cli.local.yml` file (taking precedence over `wp-cli.yml`), and even custom Lando configuration is possible via a `.lando.yml` file (taking precedence over `.lando.base.yml`). For changes to the Lando configuration or environment variables, you will need to run `lando rebuild` to apply them.
+#### Contributing to Core
+
+WordPress core contributions are done in the `public/core-dev` directory which is both a Git clone and SVN checkout. To update the Git and SVN in tandem, do `git svn-up` in that directory to update to the latest `trunk`/`master`. To switch/update another branch, do `git svn-up $branch`. This `git svn-up` command is an alias to the repo's [`bin/svn-git-up`](bin/svn-git-up) script.
+
+##### Setup Your Fork
+
+1. Fork the [wordpress-develop](https://github.com/WordPress/wordpress-develop) repository to your GitHub account. 
+2. In your teriminal, navigate to the `./public/core-dev` directory.
+3. Add the GitHub repository as a remote. 
+```git remote add <remote-name> git@github.com:<github-account>/wordpress-develop.git```
+
+You can now pull down from the upstream via `git pull origin` or push to your remote with `git push <remote-name>`.
+
+##### Setup Your Workspace
+
+You will work and commit in the `./public/core-dev/src` directory while your changes are reflected on the frontend from the `./public/core-dev/build` directory. Consult `./public/core-dev/composer.json` or `./public/core-dev/package.json` for avaiable commands such as `npm run watch` to aid your workflow.
+
+1. Create a [Trac ticket](https://make.wordpress.org/core/reports/) with your proposed changes.
+2. Create a branch with your ticket ID as reference with `git checkout -b trac-XXXXX`.
+3. Watch for file changes by running `npm run watch` from inside the `./public/core-dev/src` directory.
+4. Make your changes. 
+5. Commit early and often. 
+6. Write tests. 
+7. Push your changes to your GitHub remote with `git push <remote-name>`.
+
+Now you can view your changes on GitHub and send the pull request to the [wordpress-develop](https://github.com/WordPress/wordpress-develop) repository.
+
+#### Theme and Plugin Development
+
+WordPress plugin and theme development should happen in `public/content`, which is a custom `wp-content` directory, decoupled from the WordPress core repository. The environment automatically takes care of setting WordPress constants appropriately so that the core and content directories are connected, so you don't need to worry about this.
+
+#### Environment Configuration
+
+You can customize the environment. Variables placed in a custom `.env` file in the root directory will override similar variables from the `.env.base` file. Custom CLI configuration can be set up via a `wp-cli.local.yml` file (taking precedence over `wp-cli.yml`), and even custom Lando configuration is possible via a `.lando.yml` file (taking precedence over `.lando.base.yml`). For changes to the Lando configuration or environment variables, you will need to run `lando rebuild` to apply them.
+
+#### Lando Commands
+
+Run `lando stop` to turn off the environment and `lando start` to restart it again later. 
+
+Run `lando phpunit` to perform all tests or `lando phpunit tests/phpunit/tests/<directory-name>` to perform a specific set of tests.
+
+You can learn more about available commands in the [Lando documentation](https://docs.devwithlando.io/) or by running `lando` in your terminal.
+
+## Troubleshooting
+
+If you are having problems after running `landor start` such as `git svn-up` not recognizing the `.svn` or `.git` directories, run `lando rebuild` to rebuild the entire `./public/core-dev` directory.
 
 ## Contributing
 

@@ -27,6 +27,11 @@ env_file:
   - .env.base
   - .env
 
+proxy:
+  appserver_nginx:
+    - wordpressdev.lndo.site
+    - "*.wordpressdev.lndo.site"
+
 services:
   appserver:
     overrides:

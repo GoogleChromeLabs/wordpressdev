@@ -44,3 +44,8 @@ apt-get install yarn -y
 
 apt-get install zip -y
 apt-get install subversion -y
+
+# Install dependencies that are unique to the user environment.
+if [ -e install-local-dependencies.sh ]; then
+	bash ./install-local-dependencies.sh
+fi

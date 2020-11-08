@@ -19,13 +19,18 @@ if [[ -z "$LANDO_MOUNT" ]]; then
     exit 1
 fi
 
+cd "$(dirname "$0")"
+
 echo "Installing Dependencies"
 set -xe
 
 apt-get update -y
 apt-get -y install libyaml-dev
-yes | pecl install yaml
-echo 'extension=yaml.so' > /usr/local/etc/php/conf.d/yaml.ini
+if yes | pecl install yaml; then
+	echo 'extension=yaml.so' > /usr/local/etc/php/conf.d/yaml.ini
+else
+	echo "Did not install yaml."
+fi
 
 apt-get install gnupg -y
 

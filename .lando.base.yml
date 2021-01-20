@@ -27,6 +27,11 @@ env_file:
   - .env.base
   - .env
 
+proxy:
+  appserver_nginx:
+    - wordpressdev.lndo.site
+    - "*.wordpressdev.lndo.site"
+
 services:
   appserver:
     overrides:
@@ -38,8 +43,6 @@ services:
       phpunit/phpunit: "^6"
     install_dependencies_as_root:
       - bash bin/install-dependencies.sh
-      # Allow loopback requests to work.
-      - echo "127.0.0.1  wordpressdev.lndo.site" >> /etc/hosts
     run:
       - bash bin/setup-wordpress.sh
     run_as_root:

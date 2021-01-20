@@ -38,3 +38,6 @@ wp-cli.local.yml
 # This file is added by xdebug-on.sh; when present, Xdebug is re-enabled
 # after rebuilding.
 .xdebug-enabled
+
+# Ignored file allowing for additional dependencies to be installed.
+/bin/install-local-dependencies.sh

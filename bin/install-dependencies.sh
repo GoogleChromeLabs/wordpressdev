@@ -34,7 +34,7 @@ fi
 
 apt-get install gnupg -y
 
-curl -sL https://deb.nodesource.com/setup_12.x | bash -
+curl -sL https://deb.nodesource.com/setup_lts.x | bash -
 apt-get install nodejs -y
 
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -

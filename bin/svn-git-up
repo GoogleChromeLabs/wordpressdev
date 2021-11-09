@@ -30,9 +30,9 @@ fi
 set -ex
 git fetch origin --tags
 
-git_branch=master
+git_branch=trunk
 svn_path='^/trunk'
-if [[ ! -z "$1" ]] && [[ "$1" != 'master' ]] && [[ "$1" != 'trunk' ]]; then
+if [[ ! -z "$1" ]] && [[ "$1" != 'trunk' ]] && [[ "$1" != 'trunk' ]]; then
 	git_branch="$1"
 	svn_path="^/branches/$1"
 fi

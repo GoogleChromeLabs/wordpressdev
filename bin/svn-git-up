@@ -3,7 +3,7 @@
 # This scripts updates Git and SVN repos checked out in the same directory.
 #
 # Pass a branch name like 4.6 as the sole argument to checkout that branch. Otherwise, master/trunk is checked out.
-# 
+#
 # WordPressDev, Copyright 2019 Google LLC
 #
 # This program is free software: you can redistribute it and/or modify
@@ -40,7 +40,9 @@ fi
 git stash save
 svn switch --force "${svn_path}" --ignore-externals
 svn revert -R .
-git checkout -f "${git_branch}"
+if [[ $(git branch --show-current) != "$git_branch" ]]; then
+	git checkout -f "${git_branch}"
+fi
 git reset --hard "origin/${git_branch}"
 svn up --force --accept=theirs-full --ignore-externals
 

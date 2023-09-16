@@ -67,8 +67,13 @@ if ! git config -l --local | grep -q 'alias.svn-up'; then
     git config alias.svn-up '! ../../bin/svn-git-up $1';
 fi
 
+# When all above steps are skipped, we need to make sure the database is running.
 # Sleep for 5 seconds to allow the database to start.
 sleep 5
+
+# At this point, wp-cli tries to load config files from the current directory.
+# We need to change to root directory to avoid this.
+cd "$LANDO_MOUNT"
 
 if ! wp core is-installed; then
   wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"

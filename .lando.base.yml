@@ -38,9 +38,6 @@ services:
       environment:
         # Support debugging with XDEBUG.
         PHP_IDE_CONFIG: "serverName=wordpressdev.lndo.site"
-    composer:
-      # Note installing phpunit should be temporary because core should really install it via composer on its own.
-      phpunit/phpunit: "^6"
     install_dependencies_as_root:
       - bash bin/install-dependencies.sh
     run:

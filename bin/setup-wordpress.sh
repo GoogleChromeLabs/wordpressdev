@@ -60,6 +60,9 @@ fi
 if [[ ! -e "$LANDO_MOUNT/public/core-dev/build" ]]; then
     cd "$LANDO_MOUNT/public/core-dev"
     npx grunt
+
+    # In case `/src` directory is used in testing environment.
+    npx grunt build --dev
 fi
 
 cd "$LANDO_MOUNT/public/core-dev"

@@ -19,8 +19,7 @@ if [[ -z "$LANDO_MOUNT" ]]; then
     exit 1
 fi
 
-set -e
-set -x
+set -ex
 
 if [[ ! -e "$LANDO_MOUNT/public/core-dev" ]]; then
     git clone https://github.com/WordPress/wordpress-develop.git "$LANDO_MOUNT/public/core-dev"
@@ -67,6 +66,9 @@ cd "$LANDO_MOUNT/public/core-dev"
 if ! git config -l --local | grep -q 'alias.svn-up'; then
     git config alias.svn-up '! ../../bin/svn-git-up $1';
 fi
+
+# Sleep for 5 seconds to allow the database to start.
+sleep 5
 
 if ! wp core is-installed; then
   wp core install --url="https://$LANDO_APP_NAME.$LANDO_DOMAIN/" --title="WordPress Develop" --admin_name="admin" --admin_email="admin@local.test" --admin_password="password"

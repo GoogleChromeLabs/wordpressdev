@@ -71,7 +71,7 @@ if ! git config -l --local | grep -q 'alias.svn-up'; then
 fi
 
 # When all above steps are skipped, we need to make sure the database is running.
-# Sleep for 5 seconds to allow the database to start.
+echo "Waiting 5 seconds to ensure database has started..."
 sleep 5
 
 # At this point, wp-cli tries to load config files from the current directory.
